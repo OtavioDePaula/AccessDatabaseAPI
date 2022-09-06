@@ -1,5 +1,6 @@
 ﻿using AccessDatabaseAPI.Data;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,13 +14,13 @@ namespace AccessDatabaseAPI.Models
         {
             var insertQuery = "";
             insertQuery += "insert into tbElement values";
-            insertQuery += string.Format("({0}, '{1}', '{2}', '{3}', '{4}', {5}, {6}, '{7}', {8}, {9}, {10}, '{11}', '{12}', '{13}', {14}, {15}, '{16}', '{17}', '{18}', '{19}', {20}, {21}, {22}, default);",
+            insertQuery += string.Format("({0}, '{1}', '{2}', '{3}', '{4}', {5}, {6}, '{7}', {8}, {9}, {10}, '{11}', '{12}', '{13}', {14}, {15}, {16}, '{17}', '{18}', '{19}', '{20}', {21}, {22}, default);",
                 element.atomicNumber,            //0 
                 element.symbol,                  //1 ''
                 element.name,                    //2 ''
                 element.atomicMass,              //3 ''
                 element.electronicConfiguration, //4 ''
-                element.electronegativity,       //5 
+                element.electronegativity.ToString().Replace(',', '.'),       //5 
                 element.atomicRadius,            //6
                 element.ionRadius,               //7 ''
                 element.vanDerWaalsRadius,       //8
@@ -30,11 +31,11 @@ namespace AccessDatabaseAPI.Models
                 element.bondingType,             //13 ''
                 element.meltingPoint,            //14
                 element.boilingPoint,            //15
-                element.density,                 //16 ''
+                element.density.ToString().Replace(',', '.'),                 //16 
                 element.groupBlock,              //17 ''
                 element.yearDiscovered,          //18 ''
                 element.block,                   //19 ''
-                element.cpkHexColor,             //20
+                element.cpkHexColor,             //20 ''
                 element.period,                  //21
                 element.group);                  //22
 
@@ -122,14 +123,22 @@ namespace AccessDatabaseAPI.Models
         public List<Element> ConvertingReaderToList(MySqlDataReader reader)
         {
             var elements = new List<Element>();
-
+            var groupblockDAO = new GroupBlockDAO();
+            var standardStateDAO = new StandardStateDAO();
             while (reader.Read())
             {
                 var tempElement = new Element()
                 {
                     atomicNumber = int.Parse(reader["atomicNumber"].ToString()),
                     name = reader["name"].ToString(),
-                    symbol = reader["symbol"].ToString()
+                    symbol = reader["symbol"].ToString(),
+                    atomicMass = reader["atomicMass"].ToString(),
+                    yearDiscovered = DateTime.Parse(reader[" yearDiscovered"].ToString()),
+                    cpkHexColor = reader["cpkHexColor"].ToString(),
+                    period = int.Parse(reader["period"].ToString()),
+                    groupfamily = int.Parse(reader["groupfamily"].ToString()),
+                    groupBlock = groupblockDAO.SelectGroupBlockById(int.Parse(reader["FK_groupblock"].ToString())),
+                    standardState = standardStateDAO.SelectStandardStateById(int.Parse(reader["FK_standardState"].ToString()))
                 };
                 elements.Add(tempElement);
             }

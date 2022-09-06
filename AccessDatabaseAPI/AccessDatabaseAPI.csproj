@@ -167,6 +167,10 @@
     </Compile>
     <Compile Include="Models\Element.cs" />
     <Compile Include="Models\ElementDAO.cs" />
+    <Compile Include="Models\GroupBlock.cs" />
+    <Compile Include="Models\GroupBlockDAO.cs" />
+    <Compile Include="Models\StandardState.cs" />
+    <Compile Include="Models\StandardStateDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

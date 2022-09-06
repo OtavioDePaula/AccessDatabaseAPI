@@ -1,37 +1,36 @@
-﻿namespace AccessDatabaseAPI.Models
+﻿using System;
+
+namespace AccessDatabaseAPI.Models
 {
-    public class Element
-    {
+	public class Element
+	{
+		public int atomicNumber { get; set; }
+		public string symbol { get; set; }
+		public string name { get; set; }
+		public string atomicMass { get; set; }
+		public DateTime yearDiscovered { get; set; }
+		public string cpkHexColor { get; set; }
+		public int period { get; set; }
+		public int groupfamily { get; set; }
+		public GroupBlock groupBlock { get; set; }
+		public StandardState standardState { get; set; }
 
-        public int atomicNumber { get; set; }
-        public string symbol { get; set; }
-        public string name { get; set; }
-        public string atomicMass { get; set; }
-        public string electronicConfiguration { get; set; }
-        public double electronegativity { get; set; }
-        public int atomicRadius { get; set; }
-        public string ionRadius { get; set; }
-        public int vanDerWaalsRadius { get; set; }
-        public int ionizationEnergy { get; set; }
-        public int electronAffinity { get; set; }
-        public string oxidationStates { get; set; }
-        public string standardState { get; set; }
-        public string bondingType { get; set; }
-        public int meltingPoint { get; set; }
-        public int boilingPoint { get; set; }
-        public double density { get; set; }
-        public string groupBlock { get; set; }
-        public string yearDiscovered { get; set; }
-        public string block { get; set; }
-        public string cpkHexColor { get; set; }
-        public int period { get; set; }
-        public int group { get; set; }
-        public bool favorited { get; set; }
+		public Element()
+		{
+		}
 
-        //CONSTRUCTORS
-        public Element()
+        public Element(int atomicNumber, string symbol, string name, string atomicMass, DateTime yearDiscovered, string cpkHexColor, int period, int groupfamily, GroupBlock groupBlock, StandardState standardState)
         {
+            this.atomicNumber = atomicNumber;
+            this.symbol = symbol;
+            this.name = name;
+            this.atomicMass = atomicMass;
+            this.yearDiscovered = yearDiscovered;
+            this.cpkHexColor = cpkHexColor;
+            this.period = period;
+            this.groupfamily = groupfamily;
+            this.groupBlock = groupBlock;
+            this.standardState = standardState;
         }
-
     }
 }
