@@ -32,27 +32,27 @@ namespace AccessDatabaseAPI.Controllers
             return element;
         }
 
-        // POST: api/Element
-        [HttpPost]
-        public void Post([FromBody] List<Element> element)
-        {
-            if (element == null)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+        //// POST: api/Element
+        //[HttpPost]
+        //public void Post([FromBody] List<Element> element)
+        //{
+        //    if (element == null)
+        //        throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
 
-            var elementDAO = new ElementDAO();
-            elementDAO.SaveElement(element.FirstOrDefault());
-        }
+        //    var elementDAO = new ElementDAO();
+        //    elementDAO.SaveElement(element.FirstOrDefault());
+        //}
 
-        [HttpPut]
-        // PUT: api/Element/5
-        public void Put(int id, [FromBody] Element element)
-        {
-            if (element == null)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+        //[HttpPut]
+        //// PUT: api/Element/5
+        //public void Put(int id, [FromBody] Element element)
+        //{
+        //    if (element == null)
+        //        throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
 
-            var elementDAO = new ElementDAO();
-            elementDAO.UpdateElement(element);
-        }
+        //    var elementDAO = new ElementDAO();
+        //    elementDAO.UpdateElement(element);
+        //}
 
         // DELETE: api/Element/5
         [HttpDelete]

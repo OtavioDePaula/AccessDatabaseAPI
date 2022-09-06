@@ -61,3 +61,46 @@ namespace AccessDatabaseAPI.Data
         }
     }
 }
+
+/*
+DROP DATABASE IF EXISTS db_periodicTable;
+CREATE DATABASE IF NOT EXISTS db_periodicTable;
+USE db_periodicTable; 
+
+CREATE TABLE IF NOT EXISTS tbstandardState (
+	standardStateID INT PRIMARY KEY auto_increment,
+    standardState VARCHAR(80) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS tbGroupblock (
+	groupblockID INT PRIMARY KEY auto_increment,
+    groupblock VARCHAR(80) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS tbElement (
+	atomicNumber INT PRIMARY KEY, 
+    symbol VARCHAR(2) NOT NULL UNIQUE, 
+    name VARCHAR(80) NOT NULL UNIQUE,
+    atomicMass VARCHAR(80) NOT NULL, 
+    yearDiscovered DATE NOT NULL, 
+    cpkHexColor VARCHAR(6) NOT NULL, 
+    period INT NOT NULL, 
+    groupfamily INT NOT NULL,
+    favorited BOOLEAN DEFAULT(true),
+    FK_standardState INT NOT NULL,
+    FK_groupblock INT NOT NULL,
+    FOREIGN KEY (FK_standardState) REFERENCES tbstandardState(standardStateID),
+    FOREIGN KEY (FK_groupblock) REFERENCES tbGroupblock(groupblockID)
+); 
+
+INSERT INTO tbstandardState VALUES (default, "liquid"), 
+								   (default, "solid"),
+                                   (default, "gas");
+                                   
+INSERT INTO tbGroupBlock VALUES (default, "halogenios"), 
+								   (default, "nobre gas"),
+                                   (default, "trogenios");
+                                   
+SELECT * from tbStandardState;
+SELECT * from tbGroupBlock;
+ */
