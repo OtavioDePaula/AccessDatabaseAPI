@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS tbElement (
     symbol VARCHAR(2) NOT NULL UNIQUE, 
     name VARCHAR(80) NOT NULL UNIQUE,
     atomicMass VARCHAR(80) NOT NULL, 
-    yearDiscovered DATE NOT NULL, 
+    yearDiscovered SMALLINT NOT NULL, 
     cpkHexColor VARCHAR(6) NOT NULL, 
     period INT NOT NULL, 
     groupfamily INT NOT NULL,
@@ -92,15 +92,53 @@ CREATE TABLE IF NOT EXISTS tbElement (
     FOREIGN KEY (FK_standardState) REFERENCES tbstandardState(standardStateID),
     FOREIGN KEY (FK_groupblock) REFERENCES tbGroupblock(groupblockID)
 ); 
-
+                             
 INSERT INTO tbstandardState VALUES (default, "liquid"), 
 								   (default, "solid"),
                                    (default, "gas");
                                    
 INSERT INTO tbGroupBlock VALUES (default, "halogenios"), 
-								   (default, "nobre gas"),
-                                   (default, "trogenios");
-                                   
+							    (default, "nobre gas"),
+                                (default, "trogenios");
+INSERT INTO tbElement VALUES (
+                                1,
+                                'A',
+                                'Argon',
+                                '98.90',
+                                1765,
+                                'FF0000',
+                                1,
+                                13,
+                                default,
+                                1,
+                                1
+                             ),(
+                                2,
+                                'Z',
+                                'Zrgon',
+                                '98.90',
+                                2012,
+                                'FF0000',
+                                4,
+                                5,
+                                default,
+                                2,
+                                2 
+                             ),(
+                             	3,
+                                'X',
+                                'Xrgon',
+                                '98.90',
+                                0001,
+                                'FF0000',
+                                9,
+                                2,
+                                default,
+                                3,
+                                3
+                             );                                   
+
 SELECT * from tbStandardState;
 SELECT * from tbGroupBlock;
+SELECT * FROM tbElement;
  */

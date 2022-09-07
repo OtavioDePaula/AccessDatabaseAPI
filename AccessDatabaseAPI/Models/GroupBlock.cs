@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace AccessDatabaseAPI.Models
+﻿namespace AccessDatabaseAPI.Models
 {
-	public class GroupBlock
-	{
-		public int groupblockID { get; set; }
-		public string groupblock { get; set; }
+    public class GroupBlock
+    {
+        public int groupblockID { get; set; }
+        public string groupblock { get; set; }
 
-		public GroupBlock(int groupblockID_, string groupblock_)
-		{
-			this.groupblockID = groupblockID_;
-			this.groupblock = groupblock_;
-		}
+        public GroupBlock(int groupblockID_, string groupblock_)
+        {
+            this.groupblockID = groupblockID_;
+            this.groupblock = groupblock_;
+        }
 
         public GroupBlock()
         {

@@ -1,9 +1,7 @@
 ﻿using AccessDatabaseAPI.Data;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace AccessDatabaseAPI.Models
 {
@@ -26,6 +24,16 @@ namespace AccessDatabaseAPI.Models
             {
                 string selectByIdQuery = string.Format("select * from tbStandardState WHERE StandardStateID = {0};", id);
                 var reader = db.CommandRetuner(selectByIdQuery);
+                return ConvertingReaderToList(reader).FirstOrDefault();
+            }
+        }
+
+        public StandardState SelectStandardStateByName(string name)
+        {
+            using (db = new Database())
+            {
+                string selectByNameQuery = string.Format("select * from tbStandardState WHERE StandardState LIKE '%{0}%' LIMIT 1;", name);
+                var reader = db.CommandRetuner(selectByNameQuery);
                 return ConvertingReaderToList(reader).FirstOrDefault();
             }
         }
