@@ -24,8 +24,8 @@ namespace AccessDatabaseAPI.Models
                 element.period,                                  //6
                 element.group,                                   //7
                 element.favorited,                               //8
-                element.groupBlock.groupblockID,                 //9
-                element.standardState.standardStateID);          //10 
+                element.standardState.standardStateID,          //10 
+                element.groupBlock.groupblockID);                 //9
 
             using (db = new Database())
             {

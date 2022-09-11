@@ -32,7 +32,7 @@ namespace AccessDatabaseAPI.Models
         {
             using (db = new Database())
             {
-                string selectByNameQuery = string.Format("select * from tbStandardState WHERE StandardState LIKE '%{0}%' LIMIT 1;", name);
+                string selectByNameQuery = string.Format("call spSelectStandardState('{0}');", name);
                 var reader = db.CommandRetuner(selectByNameQuery);
                 return ConvertingReaderToList(reader).FirstOrDefault();
             }

@@ -39,14 +39,13 @@ namespace AccessDatabaseAPI.Controllers
         [HttpPost]
         public void Post([FromBody] JArray jsonArray)
         {
-
-            var element = JsonArrayToElement(jsonArray);
-
-            if (element == null)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-
             var elementDAO = new ElementDAO();
-            elementDAO.SaveElement(element);
+            for (int i = 0; i < jsonArray.Count; i++)
+            {
+                Element element = new Element();
+                element = JsonArrayToElement(jsonArray[i]);
+                elementDAO.SaveElement(element);
+            }           
         }
 
         [HttpPut]
@@ -74,26 +73,33 @@ namespace AccessDatabaseAPI.Controllers
             return element;
         }
 
-        private Element JsonArrayToElement(JArray jsonArray)
+        private Element JsonArrayToElement(JToken jsonArray)
         {
             if (jsonArray == null)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
 
             var groupblockDAO = new GroupBlockDAO();
             var standardstateDAO = new StandardStateDAO();
+
+            DateTime vYearDiscovered;
+            if (jsonArray["yearDiscovered"].ToString().Equals("Ancient"))
+                vYearDiscovered = new DateTime(00001, 01, 01);
+            else
+                vYearDiscovered = new DateTime(int.Parse(jsonArray["yearDiscovered"].ToString()), 01, 01);
+
             Element element = new Element()
             {
-                atomicNumber = int.Parse(jsonArray[0]["atomicNumber"].ToString()),
-                name = jsonArray[0]["name"].ToString(),
-                symbol = jsonArray[0]["symbol"].ToString(),
-                atomicMass = jsonArray[0]["atomicMass"].ToString(),
-                yearDiscovered = new DateTime(int.Parse(jsonArray[0]["yearDiscovered"].ToString()), 01, 01),
-                cpkHexColor = jsonArray[0]["cpkHexColor"].ToString(),
-                period = int.Parse(jsonArray[0]["period"].ToString()),
-                group = int.Parse(jsonArray[0]["group"].ToString()),
-                favorited = true,
-                groupBlock = groupblockDAO.SelectGroupBlockByName(jsonArray[0]["groupBlock"].ToString()),
-                standardState = standardstateDAO.SelectStandardStateByName(jsonArray[0]["standardState"].ToString())
+                atomicNumber = int.Parse(jsonArray["atomicNumber"].ToString()),
+                name = jsonArray["name"].ToString(),
+                symbol = jsonArray["symbol"].ToString(),
+                atomicMass = jsonArray["atomicMass"].ToString(),
+                yearDiscovered = vYearDiscovered,
+                cpkHexColor = jsonArray["cpkHexColor"].ToString(),
+                period = int.Parse(jsonArray["period"].ToString()),
+                group = int.Parse(jsonArray["group"].ToString()),
+                favorited = false,
+                groupBlock = groupblockDAO.SelectGroupBlockByName(jsonArray["groupBlock"].ToString()),
+                standardState = standardstateDAO.SelectStandardStateByName(jsonArray["standardState"].ToString())
             };
 
             return element;

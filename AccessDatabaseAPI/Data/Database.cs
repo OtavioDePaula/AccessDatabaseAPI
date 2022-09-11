@@ -141,4 +141,34 @@ INSERT INTO tbElement VALUES (
 SELECT * from tbStandardState;
 SELECT * from tbGroupBlock;
 SELECT * FROM tbElement;
+
+USE db_periodictable;
+DROP PROCEDURE IF EXISTS spSelectGroupBlock;
+DROP PROCEDURE IF EXISTS spSelectStandardState;
+
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS spSelectGroupBlock(vGroupBlock VARCHAR(80))
+BEGIN
+	IF EXISTS (SELECT * FROM tbgroupblock WHERE groupBlock = vGroupBlock) THEN
+    	SELECT * FROM tbgroupblock WHERE groupBlock = vGroupBlock;
+    ELSE
+    	INSERT INTO tbgroupblock VALUES (default, vGroupBlock);
+        SELECT * FROM tbgroupblock WHERE groupBlock = vGroupBlock;
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS spSelectStandardState(vStandardState VARCHAR(80))
+BEGIN
+	IF EXISTS (SELECT * FROM tbStandardState WHERE StandardState = vStandardState) THEN
+    	SELECT * FROM tbStandardState WHERE StandardState = vStandardState;
+    ELSE
+    	INSERT INTO tbStandardState VALUES (default, vStandardState);
+        SELECT * FROM tbStandardState WHERE StandardState = vStandardState;
+    END IF; 
+END //
+DELIMITER ;
+
+call SPSelectStandardState('test3');
  */

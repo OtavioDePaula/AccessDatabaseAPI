@@ -32,7 +32,7 @@ namespace AccessDatabaseAPI.Models
         {
             using (db = new Database())
             {
-                string selectByNameQuery = string.Format("select * from tbGroupBlock WHERE GroupBlock LIKE '%{0}%' LIMIT 1;", name);
+                string selectByNameQuery = string.Format("call spSelectGroupBlock('{0}')", name);
                 var reader = db.CommandRetuner(selectByNameQuery);
                 return ConvertingReaderToList(reader).FirstOrDefault();
             }
